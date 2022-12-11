@@ -63,6 +63,7 @@ install_signoz() {
     done
 
     kubectl patch svc $deploy_name-signoz-frontend -n $target_namespace -p '{"spec": {"type": "LoadBalancer"}}'
+    kubectl patch svc $deploy_name-signoz-otel-collector -n $target_namespace -p '{"spec": {"type": "LoadBalancer"}}'
 
     while [ $available_replicas == "null"  ]
     do
