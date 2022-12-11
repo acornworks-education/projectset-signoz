@@ -31,7 +31,8 @@ install_signoz() {
     local repo_name=signoz
     local target_namespace=signoz
     local svc_exist=""
-    local available_replicas=0
+    local available_replicas=null
+    local deploy_name=acornworks
 
     local check_installed=$(helm repo list -o json | jq -c ".[] | select(.url | contains(\"$repo_url\"))")
 
@@ -53,21 +54,21 @@ install_signoz() {
         echo "$target_namespace namespace already exists ..."
     fi
     
-    helm --namespace $target_namespace install default $repo_name/signoz
+    helm --namespace $target_namespace install $deploy_name $repo_name/signoz
 
     while [ -z "$svc_exist" ]
     do
         sleep 5
-        svc_exist=$(kubectl get svc -n signoz -o json | jq -c ".items[] | select(.metadata.name | contains(\"default-signoz-frontend\"))")
+        svc_exist=$(kubectl get svc -n signoz -o json | jq -c ".items[] | select(.metadata.name | contains(\"$deploy_name-signoz-frontend\"))")
     done
 
-    kubectl patch svc default-signoz-frontend -n $target_namespace -p '{"spec": {"type": "LoadBalancer"}}'
+    kubectl patch svc $deploy_name-signoz-frontend -n $target_namespace -p '{"spec": {"type": "LoadBalancer"}}'
 
-    while [ $available_replicas -eq 0 ]
+    while [ $available_replicas == "null"  ]
     do
         echo "Try to wait 10 seconds to run a Signoz frontend ..."
         sleep 10
-        available_replicas=$(kubectl get deploy -n signoz default-signoz-frontend -o json | jq -c ".status.availableReplicas")
+        available_replicas=$(kubectl get deploy -n signoz $deploy_name-signoz-frontend -o json | jq -c ".status.availableReplicas")
     done
 }
 
