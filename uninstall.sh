@@ -22,7 +22,10 @@ uninstall_signoz() {
     kubectl delete -n $target_namespace --all svc
     kubectl delete -n $target_namespace --all statefulset
     kubectl delete -n $target_namespace --all pods
-    kubectl delete ns $target_namespace
+    kubectl delete ns $target_namespace &
+    kubectl proxy &
+    kubectl get namespace signoz -o json |jq '.spec = {"finalizers":[]}' >temp.json
+    curl -k -H "Content-Type: application/json" -X PUT --data-binary @temp.json 127.0.0.1:8001/api/v1/namespaces/signoz/finalize
 }
 
 check_packages
