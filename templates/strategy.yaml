@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: strategy
+  name: strategy
+  namespace: acornworks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: strategy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: strategy
+    spec:
+      containers:
+      - image: k830206/signoz-strategy:latest
+        imagePullPolicy: Always
+        name: signoz-strategy
+        ports:
+        - containerPort: 65030
+        env:
+          - name: SERVICES_PRICE_URL
+            value: http://price.acornworks.svc:65020
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://acornworks-signoz-otel-collector.signoz.svc.cluster.local:4317
+        resources: {}
+status: {}
+# kubectl -n acornworks expose deployment/strategy --port 65030 --target-port 65030 --dry-run -o yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: strategy
+  name: strategy
+  namespace: acornworks
+spec:
+  ports:
+  - port: 65030
+    protocol: TCP
+    targetPort: 65030
+  selector:
+    app: strategy
+status:
+  loadBalancer: {}
+---

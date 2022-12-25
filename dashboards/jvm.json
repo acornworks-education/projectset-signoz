@@ -1,0 +1,1829 @@
+{
+    "description": "",
+    "layout": [
+      {
+        "h": 2,
+        "i": "cd59ad38-fefa-4003-a693-f3415c716ea4",
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "h": 2,
+        "i": "a0be90a5-4db9-4bf7-966f-17fe8c766ce8",
+        "moved": false,
+        "static": false,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      {
+        "h": 2,
+        "i": "c848a0e2-82d3-4b6e-9de7-2dcea63e14c2",
+        "moved": false,
+        "static": false,
+        "w": 6,
+        "x": 0,
+        "y": 2
+      },
+      {
+        "h": 2,
+        "i": "674edbdd-e40f-4348-be75-be7e584f5c22",
+        "moved": false,
+        "static": false,
+        "w": 6,
+        "x": 0,
+        "y": 4
+      }
+    ],
+    "tags": [],
+    "title": "Strategy service JVM Dashboard",
+    "variables": {
+      "Service": {
+        "allSelected": false,
+        "customValue": "",
+        "description": "Service name",
+        "modificationUUID": "70916f9c-61af-4dcd-9138-91cb7cfda50f",
+        "multiSelect": false,
+        "name": "Service",
+        "queryValue": "SELECT \t\tJSONExtractString(labels, 'net_host_name') as net_host_name\nFROM\t\tsignoz_metrics.distributed_time_series_v2\nWHERE\t\tJSONExtractString(labels, 'net_host_name') LIKE '%.svc.cluster.local'\nGROUP BY \tJSONExtractString(labels, 'net_host_name')",
+        "selectedValue": "strategy.acornworks.svc.cluster.local",
+        "showALLOption": false,
+        "sort": "ASC",
+        "textboxValue": "",
+        "type": "QUERY"
+      }
+    },
+    "widgets": [
+      {
+        "description": "",
+        "id": "674edbdd-e40f-4348-be75-be7e584f5c22",
+        "isStacked": false,
+        "nullZeroValues": "zero",
+        "opacity": "1",
+        "panelTypes": "TIME_SERIES",
+        "query": {
+          "clickHouse": [
+            {
+              "disabled": false,
+              "legend": "",
+              "name": "A",
+              "rawQuery": ""
+            }
+          ],
+          "metricsBuilder": {
+            "formulas": [],
+            "queryBuilder": [
+              {
+                "aggregateOperator": 1,
+                "disabled": false,
+                "groupBy": [],
+                "legend": "System CPU Usage",
+                "metricName": "system_cpu_usage",
+                "name": "A",
+                "reduceTo": 1,
+                "tagFilters": {
+                  "items": [
+                    {
+                      "id": "c75510e3",
+                      "key": "net_host_name",
+                      "op": "IN",
+                      "value": [
+                        "{{.Service}}"
+                      ]
+                    }
+                  ],
+                  "op": "AND"
+                }
+              },
+              {
+                "aggregateOperator": 1,
+                "disabled": false,
+                "groupBy": [],
+                "legend": "Process CPU Usage",
+                "metricName": "process_cpu_usage",
+                "name": "B",
+                "reduceTo": 1,
+                "tagFilters": {
+                  "items": [
+                    {
+                      "id": "120f8e5b",
+                      "key": "net_host_name",
+                      "op": "IN",
+                      "value": [
+                        "{{.Service}}"
+                      ]
+                    }
+                  ],
+                  "op": "AND"
+                }
+              }
+            ]
+          },
+          "promQL": [
+            {
+              "disabled": false,
+              "legend": "",
+              "name": "A",
+              "query": ""
+            }
+          ],
+          "queryType": 1
+        },
+        "queryData": {
+          "data": {
+            "queryData": [
+              {
+                "legend": "Process CPU Usage",
+                "metric": {
+                  "__name__": "process_cpu_usage",
+                  "fingerprint": "7762288408002667361",
+                  "host_name": "signoz-host",
+                  "http_scheme": "http",
+                  "net_host_name": "gateway.acornworks.svc.cluster.local",
+                  "net_host_port": "65080",
+                  "os_type": "linux",
+                  "service_instance_id": "gateway.acornworks.svc.cluster.local:65080",
+                  "service_name": "jvm-metrics"
+                },
+                "queryName": "B",
+                "values": [
+                  [
+                    1671629580,
+                    "0.0013598041881968997"
+                  ],
+                  [
+                    1671629640,
+                    "0.0016308779559662953"
+                  ],
+                  [
+                    1671629700,
+                    "0.0013553808620222283"
+                  ],
+                  [
+                    1671629760,
+                    "0.0016384489350081922"
+                  ],
+                  [
+                    1671629820,
+                    "0.00134661998384056"
+                  ],
+                  [
+                    1671629880,
+                    "0.0016429353778751369"
+                  ],
+                  [
+                    1671629940,
+                    "0.0010775862068965517"
+                  ],
+                  [
+                    1671630000,
+                    "0.001878690284487386"
+                  ],
+                  [
+                    1671630060,
+                    "0.0016251354279523294"
+                  ],
+                  [
+                    1671630120,
+                    "0.0018888289260658392"
+                  ],
+                  [
+                    1671630180,
+                    "0.0016433853738701725"
+                  ],
+                  [
+                    1671630240,
+                    "0.0016129032258064516"
+                  ],
+                  [
+                    1671630300,
+                    "0.0016168148746968471"
+                  ],
+                  [
+                    1671630360,
+                    "0.0013451708366962604"
+                  ],
+                  [
+                    1671630420,
+                    "0.0013455328310010765"
+                  ],
+                  [
+                    1671630480,
+                    "0.0019006244909041542"
+                  ],
+                  [
+                    1671630540,
+                    "0.0016515276630883566"
+                  ],
+                  [
+                    1671630600,
+                    "0.0038398244651673065"
+                  ],
+                  [
+                    1671630660,
+                    "0.0013308490817141336"
+                  ],
+                  [
+                    1671630720,
+                    "0.0013598041881968997"
+                  ],
+                  [
+                    1671630780,
+                    "0.0018913807079167792"
+                  ],
+                  [
+                    1671630840,
+                    "0.002435723951285521"
+                  ],
+                  [
+                    1671630900,
+                    "0.0013575889220743959"
+                  ],
+                  [
+                    1671630960,
+                    "0.0016224986479177934"
+                  ],
+                  [
+                    1671631020,
+                    "0.0016185594820609657"
+                  ],
+                  [
+                    1671631080,
+                    "0.0016021361815754338"
+                  ],
+                  [
+                    1671631140,
+                    "0.0016142050040355124"
+                  ],
+                  [
+                    1671631200,
+                    "0.0016159439806086723"
+                  ],
+                  [
+                    1671631260,
+                    "0.0010949904188338351"
+                  ]
+                ]
+              },
+              {
+                "legend": "System CPU Usage",
+                "metric": {
+                  "__name__": "system_cpu_usage",
+                  "fingerprint": "8467131199326896155",
+                  "host_name": "signoz-host",
+                  "http_scheme": "http",
+                  "net_host_name": "gateway.acornworks.svc.cluster.local",
+                  "net_host_port": "65080",
+                  "os_type": "linux",
+                  "service_instance_id": "gateway.acornworks.svc.cluster.local:65080",
+                  "service_name": "jvm-metrics"
+                },
+                "queryName": "A",
+                "values": [
+                  [
+                    1671629580,
+                    "0.0016684711643090316"
+                  ],
+                  [
+                    1671629640,
+                    "0.0015390051644468606"
+                  ],
+                  [
+                    1671629700,
+                    "0.0014058297180043384"
+                  ],
+                  [
+                    1671629760,
+                    "0.001749426542872747"
+                  ],
+                  [
+                    1671629820,
+                    "0.001447643415028279"
+                  ],
+                  [
+                    1671629880,
+                    "0.0017714129244249725"
+                  ],
+                  [
+                    1671629940,
+                    "0.0013830773376448397"
+                  ],
+                  [
+                    1671630000,
+                    "0.0015715320633217064"
+                  ],
+                  [
+                    1671630060,
+                    "0.0015935536294691224"
+                  ],
+                  [
+                    1671630120,
+                    "0.0017849122807017544"
+                  ],
+                  [
+                    1671630180,
+                    "0.001442481511914544"
+                  ],
+                  [
+                    1671630240,
+                    "0.0015645698924731182"
+                  ],
+                  [
+                    1671630300,
+                    "0.001390406898410132"
+                  ],
+                  [
+                    1671630360,
+                    "0.0012806243272335846"
+                  ],
+                  [
+                    1671630420,
+                    "0.0014309741657696448"
+                  ],
+                  [
+                    1671630480,
+                    "0.0016503395816354252"
+                  ],
+                  [
+                    1671630540,
+                    "0.0019394990366088632"
+                  ],
+                  [
+                    1671630600,
+                    "0.0036134393856280854"
+                  ],
+                  [
+                    1671630660,
+                    "0.001383235763704098"
+                  ],
+                  [
+                    1671630720,
+                    "0.0014830840358988305"
+                  ],
+                  [
+                    1671630780,
+                    "0.00217215018908698"
+                  ],
+                  [
+                    1671630840,
+                    "0.0023531258457374833"
+                  ],
+                  [
+                    1671630900,
+                    "0.0014398859625305458"
+                  ],
+                  [
+                    1671630960,
+                    "0.0016287374966207082"
+                  ],
+                  [
+                    1671631020,
+                    "0.0016447531696789858"
+                  ],
+                  [
+                    1671631080,
+                    "0.001371935914552737"
+                  ],
+                  [
+                    1671631140,
+                    "0.0015001614205004035"
+                  ],
+                  [
+                    1671631200,
+                    "0.001561900915455035"
+                  ],
+                  [
+                    1671631260,
+                    "0.0012183634373289546"
+                  ]
+                ]
+              }
+            ]
+          },
+          "error": false,
+          "errorMessage": "",
+          "loading": false
+        },
+        "timePreferance": "GLOBAL_TIME",
+        "title": "CPU Usage",
+        "yAxisUnit": "percent"
+      },
+      {
+        "description": "",
+        "id": "c848a0e2-82d3-4b6e-9de7-2dcea63e14c2",
+        "isStacked": false,
+        "nullZeroValues": "zero",
+        "opacity": "1",
+        "panelTypes": "TIME_SERIES",
+        "query": {
+          "clickHouse": [
+            {
+              "disabled": false,
+              "legend": "",
+              "name": "A",
+              "rawQuery": ""
+            }
+          ],
+          "metricsBuilder": {
+            "formulas": [],
+            "queryBuilder": [
+              {
+                "aggregateOperator": 4,
+                "disabled": false,
+                "groupBy": [],
+                "legend": "Used",
+                "metricName": "jvm_memory_used_bytes",
+                "name": "A",
+                "reduceTo": 1,
+                "tagFilters": {
+                  "items": [
+                    {
+                      "id": "353ed054",
+                      "key": "area",
+                      "op": "IN",
+                      "value": [
+                        "heap"
+                      ]
+                    },
+                    {
+                      "id": "18e75cff",
+                      "key": "net_host_name",
+                      "op": "IN",
+                      "value": [
+                        "{{.Service}}"
+                      ]
+                    }
+                  ],
+                  "op": "AND"
+                }
+              },
+              {
+                "aggregateOperator": 4,
+                "disabled": false,
+                "groupBy": [],
+                "legend": "Commited",
+                "metricName": "jvm_memory_committed_bytes",
+                "name": "C",
+                "reduceTo": 1,
+                "tagFilters": {
+                  "items": [
+                    {
+                      "id": "980b68e1",
+                      "key": "area",
+                      "op": "IN",
+                      "value": [
+                        "heap"
+                      ]
+                    },
+                    {
+                      "id": "9d3766b0",
+                      "key": "net_host_name",
+                      "op": "IN",
+                      "value": [
+                        "{{.Service}}"
+                      ]
+                    }
+                  ],
+                  "op": "AND"
+                }
+              }
+            ]
+          },
+          "promQL": [
+            {
+              "disabled": false,
+              "legend": "",
+              "name": "A",
+              "query": ""
+            }
+          ],
+          "queryType": 1
+        },
+        "queryData": {
+          "data": {
+            "queryData": [
+              {
+                "legend": "Used",
+                "metric": {},
+                "queryName": "A",
+                "values": [
+                  [
+                    1671629460,
+                    "432663552"
+                  ],
+                  [
+                    1671629520,
+                    "446295040"
+                  ],
+                  [
+                    1671629580,
+                    "458877952"
+                  ],
+                  [
+                    1671629640,
+                    "474606592"
+                  ],
+                  [
+                    1671629700,
+                    "488238080"
+                  ],
+                  [
+                    1671629760,
+                    "502918144"
+                  ],
+                  [
+                    1671629820,
+                    "516549632"
+                  ],
+                  [
+                    1671629880,
+                    "531229696"
+                  ],
+                  [
+                    1671629940,
+                    "545909760"
+                  ],
+                  [
+                    1671630000,
+                    "561638400"
+                  ],
+                  [
+                    1671630060,
+                    "576318464"
+                  ],
+                  [
+                    1671630120,
+                    "589949952"
+                  ],
+                  [
+                    1671630180,
+                    "603581440"
+                  ],
+                  [
+                    1671630240,
+                    "617212928"
+                  ],
+                  [
+                    1671630300,
+                    "632941568"
+                  ],
+                  [
+                    1671630360,
+                    "645524480"
+                  ],
+                  [
+                    1671630420,
+                    "660204544"
+                  ],
+                  [
+                    1671630480,
+                    "672787456"
+                  ],
+                  [
+                    1671630540,
+                    "687467520"
+                  ],
+                  [
+                    1671630600,
+                    "701099008"
+                  ],
+                  [
+                    1671630660,
+                    "715779072"
+                  ],
+                  [
+                    1671630720,
+                    "728361984"
+                  ],
+                  [
+                    1671630780,
+                    "743042048"
+                  ],
+                  [
+                    1671630840,
+                    "756673536"
+                  ],
+                  [
+                    1671630900,
+                    "770305024"
+                  ],
+                  [
+                    1671630960,
+                    "784985088"
+                  ],
+                  [
+                    1671631020,
+                    "798616576"
+                  ],
+                  [
+                    1671631080,
+                    "813296640"
+                  ],
+                  [
+                    1671631140,
+                    "827976704"
+                  ]
+                ]
+              },
+              {
+                "legend": "Commited",
+                "metric": {},
+                "queryName": "C",
+                "values": [
+                  [
+                    1671629460,
+                    "1182793728"
+                  ],
+                  [
+                    1671629520,
+                    "1182793728"
+                  ],
+                  [
+                    1671629580,
+                    "1182793728"
+                  ],
+                  [
+                    1671629640,
+                    "1182793728"
+                  ],
+                  [
+                    1671629700,
+                    "1182793728"
+                  ],
+                  [
+                    1671629760,
+                    "1182793728"
+                  ],
+                  [
+                    1671629820,
+                    "1182793728"
+                  ],
+                  [
+                    1671629880,
+                    "1182793728"
+                  ],
+                  [
+                    1671629940,
+                    "1182793728"
+                  ],
+                  [
+                    1671630000,
+                    "1182793728"
+                  ],
+                  [
+                    1671630060,
+                    "1182793728"
+                  ],
+                  [
+                    1671630120,
+                    "1182793728"
+                  ],
+                  [
+                    1671630180,
+                    "1182793728"
+                  ],
+                  [
+                    1671630240,
+                    "1182793728"
+                  ],
+                  [
+                    1671630300,
+                    "1182793728"
+                  ],
+                  [
+                    1671630360,
+                    "1182793728"
+                  ],
+                  [
+                    1671630420,
+                    "1182793728"
+                  ],
+                  [
+                    1671630480,
+                    "1182793728"
+                  ],
+                  [
+                    1671630540,
+                    "1182793728"
+                  ],
+                  [
+                    1671630600,
+                    "1182793728"
+                  ],
+                  [
+                    1671630660,
+                    "1182793728"
+                  ],
+                  [
+                    1671630720,
+                    "1182793728"
+                  ],
+                  [
+                    1671630780,
+                    "1182793728"
+                  ],
+                  [
+                    1671630840,
+                    "1182793728"
+                  ],
+                  [
+                    1671630900,
+                    "1182793728"
+                  ],
+                  [
+                    1671630960,
+                    "1182793728"
+                  ],
+                  [
+                    1671631020,
+                    "1182793728"
+                  ],
+                  [
+                    1671631080,
+                    "1182793728"
+                  ],
+                  [
+                    1671631140,
+                    "1182793728"
+                  ]
+                ]
+              }
+            ]
+          },
+          "error": false,
+          "errorMessage": "",
+          "loading": false
+        },
+        "timePreferance": "GLOBAL_TIME",
+        "title": "Heap Memory",
+        "yAxisUnit": "Bps"
+      },
+      {
+        "description": "",
+        "id": "a0be90a5-4db9-4bf7-966f-17fe8c766ce8",
+        "isStacked": false,
+        "nullZeroValues": "zero",
+        "opacity": "1",
+        "panelTypes": "TIME_SERIES",
+        "query": {
+          "clickHouse": [
+            {
+              "disabled": false,
+              "legend": "",
+              "name": "A",
+              "rawQuery": ""
+            }
+          ],
+          "metricsBuilder": {
+            "formulas": [],
+            "queryBuilder": [
+              {
+                "aggregateOperator": 1,
+                "disabled": false,
+                "groupBy": [],
+                "legend": "Live",
+                "metricName": "jvm_threads_live_threads",
+                "name": "A",
+                "reduceTo": 1,
+                "tagFilters": {
+                  "items": [
+                    {
+                      "id": "028d22ac",
+                      "key": "net_host_name",
+                      "op": "IN",
+                      "value": [
+                        "{{.Service}}"
+                      ]
+                    }
+                  ],
+                  "op": "AND"
+                }
+              },
+              {
+                "aggregateOperator": 1,
+                "disabled": false,
+                "groupBy": [],
+                "legend": "Daemon",
+                "metricName": "jvm_threads_daemon_threads",
+                "name": "B",
+                "reduceTo": 1,
+                "tagFilters": {
+                  "items": [
+                    {
+                      "id": "ce6946a6",
+                      "key": "net_host_name",
+                      "op": "IN",
+                      "value": [
+                        "{{.Service}}"
+                      ]
+                    }
+                  ],
+                  "op": "AND"
+                }
+              },
+              {
+                "aggregateOperator": 1,
+                "disabled": false,
+                "groupBy": [],
+                "legend": "Peak",
+                "metricName": "jvm_threads_peak_threads",
+                "name": "C",
+                "reduceTo": 1,
+                "tagFilters": {
+                  "items": [
+                    {
+                      "id": "eb543122",
+                      "key": "state",
+                      "op": "IN",
+                      "value": [
+                        "runnable"
+                      ]
+                    },
+                    {
+                      "id": "540efe71",
+                      "key": "net_host_name",
+                      "op": "IN",
+                      "value": [
+                        "{{.Service}}"
+                      ]
+                    }
+                  ],
+                  "op": "AND"
+                }
+              },
+              {
+                "aggregateOperator": 1,
+                "disabled": false,
+                "groupBy": [],
+                "legend": "Runnable Threads",
+                "metricName": "jvm_threads_states_threads",
+                "name": "D",
+                "reduceTo": 1,
+                "tagFilters": {
+                  "items": [
+                    {
+                      "id": "eb543122",
+                      "key": "state",
+                      "op": "IN",
+                      "value": [
+                        "runnable"
+                      ]
+                    },
+                    {
+                      "id": "0b01a3ed",
+                      "key": "net_host_name",
+                      "op": "IN",
+                      "value": [
+                        "{{.Service}}"
+                      ]
+                    }
+                  ],
+                  "op": "AND"
+                }
+              },
+              {
+                "aggregateOperator": 1,
+                "disabled": false,
+                "groupBy": [],
+                "legend": "Blocked Threads",
+                "metricName": "jvm_threads_states_threads",
+                "name": "E",
+                "reduceTo": 1,
+                "tagFilters": {
+                  "items": [
+                    {
+                      "id": "a4a9bdc7",
+                      "key": "state",
+                      "op": "IN",
+                      "value": [
+                        "blocked"
+                      ]
+                    },
+                    {
+                      "id": "e03b4c87",
+                      "key": "net_host_name",
+                      "op": "IN",
+                      "value": [
+                        "{{.Service}}"
+                      ]
+                    }
+                  ],
+                  "op": "AND"
+                }
+              }
+            ]
+          },
+          "promQL": [
+            {
+              "disabled": false,
+              "legend": "",
+              "name": "A",
+              "query": ""
+            }
+          ],
+          "queryType": 1
+        },
+        "queryData": {
+          "data": {
+            "queryData": [
+              {
+                "legend": "Runnable Threads",
+                "metric": {
+                  "__name__": "jvm_threads_states_threads",
+                  "fingerprint": "10560964244123843269",
+                  "host_name": "signoz-host",
+                  "http_scheme": "http",
+                  "net_host_name": "strategy.acornworks.svc.cluster.local",
+                  "net_host_port": "65030",
+                  "os_type": "linux",
+                  "service_instance_id": "strategy.acornworks.svc.cluster.local:65030",
+                  "service_name": "jvm-metrics",
+                  "state": "runnable"
+                },
+                "queryName": "D",
+                "values": [
+                  [
+                    1671629520,
+                    "7"
+                  ],
+                  [
+                    1671629580,
+                    "7"
+                  ],
+                  [
+                    1671629640,
+                    "7"
+                  ],
+                  [
+                    1671629700,
+                    "7"
+                  ],
+                  [
+                    1671629760,
+                    "7"
+                  ],
+                  [
+                    1671629820,
+                    "7"
+                  ],
+                  [
+                    1671629880,
+                    "7"
+                  ],
+                  [
+                    1671629940,
+                    "7"
+                  ],
+                  [
+                    1671630000,
+                    "7"
+                  ],
+                  [
+                    1671630060,
+                    "7"
+                  ],
+                  [
+                    1671630120,
+                    "7"
+                  ],
+                  [
+                    1671630180,
+                    "7"
+                  ],
+                  [
+                    1671630240,
+                    "7"
+                  ],
+                  [
+                    1671630300,
+                    "7"
+                  ],
+                  [
+                    1671630360,
+                    "7"
+                  ],
+                  [
+                    1671630420,
+                    "7"
+                  ],
+                  [
+                    1671630480,
+                    "7"
+                  ],
+                  [
+                    1671630540,
+                    "7"
+                  ],
+                  [
+                    1671630600,
+                    "7"
+                  ],
+                  [
+                    1671630660,
+                    "7"
+                  ],
+                  [
+                    1671630720,
+                    "7"
+                  ],
+                  [
+                    1671630780,
+                    "7"
+                  ],
+                  [
+                    1671630840,
+                    "7"
+                  ],
+                  [
+                    1671630900,
+                    "7"
+                  ],
+                  [
+                    1671630960,
+                    "7"
+                  ],
+                  [
+                    1671631020,
+                    "7"
+                  ],
+                  [
+                    1671631080,
+                    "7"
+                  ],
+                  [
+                    1671631140,
+                    "7"
+                  ],
+                  [
+                    1671631200,
+                    "7"
+                  ]
+                ]
+              },
+              {
+                "legend": "Live",
+                "metric": {
+                  "__name__": "jvm_threads_live_threads",
+                  "fingerprint": "10000629841838750003",
+                  "host_name": "signoz-host",
+                  "http_scheme": "http",
+                  "net_host_name": "strategy.acornworks.svc.cluster.local",
+                  "net_host_port": "65030",
+                  "os_type": "linux",
+                  "service_instance_id": "strategy.acornworks.svc.cluster.local:65030",
+                  "service_name": "jvm-metrics"
+                },
+                "queryName": "A",
+                "values": [
+                  [
+                    1671629520,
+                    "29"
+                  ],
+                  [
+                    1671629580,
+                    "29"
+                  ],
+                  [
+                    1671629640,
+                    "28"
+                  ],
+                  [
+                    1671629700,
+                    "28"
+                  ],
+                  [
+                    1671629760,
+                    "28"
+                  ],
+                  [
+                    1671629820,
+                    "28"
+                  ],
+                  [
+                    1671629880,
+                    "28"
+                  ],
+                  [
+                    1671629940,
+                    "28"
+                  ],
+                  [
+                    1671630000,
+                    "28"
+                  ],
+                  [
+                    1671630060,
+                    "28"
+                  ],
+                  [
+                    1671630120,
+                    "29"
+                  ],
+                  [
+                    1671630180,
+                    "28"
+                  ],
+                  [
+                    1671630240,
+                    "28"
+                  ],
+                  [
+                    1671630300,
+                    "28"
+                  ],
+                  [
+                    1671630360,
+                    "28"
+                  ],
+                  [
+                    1671630420,
+                    "28"
+                  ],
+                  [
+                    1671630480,
+                    "28"
+                  ],
+                  [
+                    1671630540,
+                    "29"
+                  ],
+                  [
+                    1671630600,
+                    "28"
+                  ],
+                  [
+                    1671630660,
+                    "28"
+                  ],
+                  [
+                    1671630720,
+                    "29"
+                  ],
+                  [
+                    1671630780,
+                    "29"
+                  ],
+                  [
+                    1671630840,
+                    "28"
+                  ],
+                  [
+                    1671630900,
+                    "28"
+                  ],
+                  [
+                    1671630960,
+                    "29"
+                  ],
+                  [
+                    1671631020,
+                    "28"
+                  ],
+                  [
+                    1671631080,
+                    "28"
+                  ],
+                  [
+                    1671631140,
+                    "28"
+                  ],
+                  [
+                    1671631200,
+                    "29"
+                  ]
+                ]
+              },
+              {
+                "legend": "Blocked Threads",
+                "metric": {
+                  "__name__": "jvm_threads_states_threads",
+                  "fingerprint": "4220102630682447784",
+                  "host_name": "signoz-host",
+                  "http_scheme": "http",
+                  "net_host_name": "strategy.acornworks.svc.cluster.local",
+                  "net_host_port": "65030",
+                  "os_type": "linux",
+                  "service_instance_id": "strategy.acornworks.svc.cluster.local:65030",
+                  "service_name": "jvm-metrics",
+                  "state": "blocked"
+                },
+                "queryName": "E",
+                "values": [
+                  [
+                    1671629520,
+                    "0"
+                  ],
+                  [
+                    1671629580,
+                    "0"
+                  ],
+                  [
+                    1671629640,
+                    "0"
+                  ],
+                  [
+                    1671629700,
+                    "0"
+                  ],
+                  [
+                    1671629760,
+                    "0"
+                  ],
+                  [
+                    1671629820,
+                    "0"
+                  ],
+                  [
+                    1671629880,
+                    "0"
+                  ],
+                  [
+                    1671629940,
+                    "0"
+                  ],
+                  [
+                    1671630000,
+                    "0"
+                  ],
+                  [
+                    1671630060,
+                    "0"
+                  ],
+                  [
+                    1671630120,
+                    "0"
+                  ],
+                  [
+                    1671630180,
+                    "0"
+                  ],
+                  [
+                    1671630240,
+                    "0"
+                  ],
+                  [
+                    1671630300,
+                    "0"
+                  ],
+                  [
+                    1671630360,
+                    "0"
+                  ],
+                  [
+                    1671630420,
+                    "0"
+                  ],
+                  [
+                    1671630480,
+                    "0"
+                  ],
+                  [
+                    1671630540,
+                    "0"
+                  ],
+                  [
+                    1671630600,
+                    "0"
+                  ],
+                  [
+                    1671630660,
+                    "0"
+                  ],
+                  [
+                    1671630720,
+                    "0"
+                  ],
+                  [
+                    1671630780,
+                    "0"
+                  ],
+                  [
+                    1671630840,
+                    "0"
+                  ],
+                  [
+                    1671630900,
+                    "0"
+                  ],
+                  [
+                    1671630960,
+                    "0"
+                  ],
+                  [
+                    1671631020,
+                    "0"
+                  ],
+                  [
+                    1671631080,
+                    "0"
+                  ],
+                  [
+                    1671631140,
+                    "0"
+                  ],
+                  [
+                    1671631200,
+                    "0"
+                  ]
+                ]
+              },
+              {
+                "legend": "Daemon",
+                "metric": {
+                  "__name__": "jvm_threads_daemon_threads",
+                  "fingerprint": "12241795520271273769",
+                  "host_name": "signoz-host",
+                  "http_scheme": "http",
+                  "net_host_name": "strategy.acornworks.svc.cluster.local",
+                  "net_host_port": "65030",
+                  "os_type": "linux",
+                  "service_instance_id": "strategy.acornworks.svc.cluster.local:65030",
+                  "service_name": "jvm-metrics"
+                },
+                "queryName": "B",
+                "values": [
+                  [
+                    1671629520,
+                    "25"
+                  ],
+                  [
+                    1671629580,
+                    "25"
+                  ],
+                  [
+                    1671629640,
+                    "24"
+                  ],
+                  [
+                    1671629700,
+                    "24"
+                  ],
+                  [
+                    1671629760,
+                    "24"
+                  ],
+                  [
+                    1671629820,
+                    "24"
+                  ],
+                  [
+                    1671629880,
+                    "24"
+                  ],
+                  [
+                    1671629940,
+                    "24"
+                  ],
+                  [
+                    1671630000,
+                    "24"
+                  ],
+                  [
+                    1671630060,
+                    "24"
+                  ],
+                  [
+                    1671630120,
+                    "25"
+                  ],
+                  [
+                    1671630180,
+                    "24"
+                  ],
+                  [
+                    1671630240,
+                    "24"
+                  ],
+                  [
+                    1671630300,
+                    "24"
+                  ],
+                  [
+                    1671630360,
+                    "24"
+                  ],
+                  [
+                    1671630420,
+                    "24"
+                  ],
+                  [
+                    1671630480,
+                    "24"
+                  ],
+                  [
+                    1671630540,
+                    "25"
+                  ],
+                  [
+                    1671630600,
+                    "24"
+                  ],
+                  [
+                    1671630660,
+                    "24"
+                  ],
+                  [
+                    1671630720,
+                    "25"
+                  ],
+                  [
+                    1671630780,
+                    "25"
+                  ],
+                  [
+                    1671630840,
+                    "24"
+                  ],
+                  [
+                    1671630900,
+                    "24"
+                  ],
+                  [
+                    1671630960,
+                    "25"
+                  ],
+                  [
+                    1671631020,
+                    "24"
+                  ],
+                  [
+                    1671631080,
+                    "24"
+                  ],
+                  [
+                    1671631140,
+                    "24"
+                  ],
+                  [
+                    1671631200,
+                    "25"
+                  ]
+                ]
+              }
+            ]
+          },
+          "error": false,
+          "errorMessage": "",
+          "loading": false
+        },
+        "timePreferance": "GLOBAL_TIME",
+        "title": "Threads",
+        "yAxisUnit": "none"
+      },
+      {
+        "description": "",
+        "id": "cd59ad38-fefa-4003-a693-f3415c716ea4",
+        "isStacked": false,
+        "nullZeroValues": "zero",
+        "opacity": "1",
+        "panelTypes": "TIME_SERIES",
+        "query": {
+          "clickHouse": [
+            {
+              "disabled": false,
+              "legend": "",
+              "name": "A",
+              "rawQuery": ""
+            }
+          ],
+          "metricsBuilder": {
+            "formulas": [],
+            "queryBuilder": [
+              {
+                "aggregateOperator": 1,
+                "disabled": false,
+                "groupBy": [],
+                "legend": "Loaded",
+                "metricName": "jvm_classes_loaded_classes",
+                "name": "A",
+                "reduceTo": 1,
+                "tagFilters": {
+                  "items": [
+                    {
+                      "id": "42049061",
+                      "key": "net_host_name",
+                      "op": "IN",
+                      "value": [
+                        "{{.Service}}"
+                      ]
+                    }
+                  ],
+                  "op": "AND"
+                }
+              },
+              {
+                "aggregateOperator": 1,
+                "disabled": false,
+                "groupBy": [],
+                "legend": "Unloaded",
+                "metricName": "jvm_classes_unloaded_classes_total",
+                "name": "B",
+                "reduceTo": 1,
+                "tagFilters": {
+                  "items": [
+                    {
+                      "id": "6d7bb6eb",
+                      "key": "net_host_name",
+                      "op": "IN",
+                      "value": [
+                        "{{.Service}}"
+                      ]
+                    }
+                  ],
+                  "op": "AND"
+                }
+              }
+            ]
+          },
+          "promQL": [
+            {
+              "disabled": false,
+              "legend": "",
+              "name": "A",
+              "query": ""
+            }
+          ],
+          "queryType": 1
+        },
+        "queryData": {
+          "data": {
+            "queryData": [
+              {
+                "legend": "Unloaded",
+                "metric": {
+                  "__name__": "jvm_classes_unloaded_classes_total",
+                  "fingerprint": "11936723035631177286",
+                  "host_name": "signoz-host",
+                  "http_scheme": "http",
+                  "net_host_name": "strategy.acornworks.svc.cluster.local",
+                  "net_host_port": "65030",
+                  "os_type": "linux",
+                  "service_instance_id": "strategy.acornworks.svc.cluster.local:65030",
+                  "service_name": "jvm-metrics"
+                },
+                "queryName": "B",
+                "values": [
+                  [
+                    1671629700,
+                    "0"
+                  ],
+                  [
+                    1671629760,
+                    "0"
+                  ],
+                  [
+                    1671629820,
+                    "0"
+                  ],
+                  [
+                    1671629880,
+                    "0"
+                  ],
+                  [
+                    1671629940,
+                    "0"
+                  ],
+                  [
+                    1671630000,
+                    "0"
+                  ],
+                  [
+                    1671630060,
+                    "0"
+                  ],
+                  [
+                    1671630120,
+                    "0"
+                  ],
+                  [
+                    1671630180,
+                    "0"
+                  ],
+                  [
+                    1671630240,
+                    "0"
+                  ],
+                  [
+                    1671630300,
+                    "0"
+                  ],
+                  [
+                    1671630360,
+                    "0"
+                  ],
+                  [
+                    1671630420,
+                    "0"
+                  ],
+                  [
+                    1671630480,
+                    "0"
+                  ],
+                  [
+                    1671630540,
+                    "0"
+                  ],
+                  [
+                    1671630600,
+                    "0"
+                  ],
+                  [
+                    1671630660,
+                    "0"
+                  ],
+                  [
+                    1671630720,
+                    "0"
+                  ],
+                  [
+                    1671630780,
+                    "0"
+                  ],
+                  [
+                    1671630840,
+                    "0"
+                  ],
+                  [
+                    1671630900,
+                    "0"
+                  ],
+                  [
+                    1671630960,
+                    "0"
+                  ],
+                  [
+                    1671631020,
+                    "0"
+                  ],
+                  [
+                    1671631080,
+                    "0"
+                  ],
+                  [
+                    1671631140,
+                    "0"
+                  ],
+                  [
+                    1671631200,
+                    "0"
+                  ],
+                  [
+                    1671631260,
+                    "0"
+                  ],
+                  [
+                    1671631320,
+                    "0"
+                  ],
+                  [
+                    1671631380,
+                    "0"
+                  ]
+                ]
+              },
+              {
+                "legend": "Loaded",
+                "metric": {
+                  "__name__": "jvm_classes_loaded_classes",
+                  "fingerprint": "13071108803969876092",
+                  "host_name": "signoz-host",
+                  "http_scheme": "http",
+                  "net_host_name": "strategy.acornworks.svc.cluster.local",
+                  "net_host_port": "65030",
+                  "os_type": "linux",
+                  "service_instance_id": "strategy.acornworks.svc.cluster.local:65030",
+                  "service_name": "jvm-metrics"
+                },
+                "queryName": "A",
+                "values": [
+                  [
+                    1671629700,
+                    "11935"
+                  ],
+                  [
+                    1671629760,
+                    "11935"
+                  ],
+                  [
+                    1671629820,
+                    "11935"
+                  ],
+                  [
+                    1671629880,
+                    "11935"
+                  ],
+                  [
+                    1671629940,
+                    "11935"
+                  ],
+                  [
+                    1671630000,
+                    "11935"
+                  ],
+                  [
+                    1671630060,
+                    "11935"
+                  ],
+                  [
+                    1671630120,
+                    "11935"
+                  ],
+                  [
+                    1671630180,
+                    "11935"
+                  ],
+                  [
+                    1671630240,
+                    "11935"
+                  ],
+                  [
+                    1671630300,
+                    "11935"
+                  ],
+                  [
+                    1671630360,
+                    "11935"
+                  ],
+                  [
+                    1671630420,
+                    "11935"
+                  ],
+                  [
+                    1671630480,
+                    "11935"
+                  ],
+                  [
+                    1671630540,
+                    "11935"
+                  ],
+                  [
+                    1671630600,
+                    "11935"
+                  ],
+                  [
+                    1671630660,
+                    "11935"
+                  ],
+                  [
+                    1671630720,
+                    "11935"
+                  ],
+                  [
+                    1671630780,
+                    "11935"
+                  ],
+                  [
+                    1671630840,
+                    "11935"
+                  ],
+                  [
+                    1671630900,
+                    "11935"
+                  ],
+                  [
+                    1671630960,
+                    "11935"
+                  ],
+                  [
+                    1671631020,
+                    "11935"
+                  ],
+                  [
+                    1671631080,
+                    "11935"
+                  ],
+                  [
+                    1671631140,
+                    "11935"
+                  ],
+                  [
+                    1671631200,
+                    "11935"
+                  ],
+                  [
+                    1671631260,
+                    "11935"
+                  ],
+                  [
+                    1671631320,
+                    "11935"
+                  ],
+                  [
+                    1671631380,
+                    "11935"
+                  ]
+                ]
+              }
+            ]
+          },
+          "error": false,
+          "errorMessage": "",
+          "loading": false
+        },
+        "timePreferance": "GLOBAL_TIME",
+        "title": "Classes",
+        "yAxisUnit": "none"
+      }
+    ]
+  }

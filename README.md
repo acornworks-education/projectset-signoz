@@ -9,4 +9,3 @@ helm upgrade -f values.yaml -n signoz acornworks signoz/signoz
 
 # Patch endpoints
 kubectl patch svc acornworks-signoz-frontend -n signoz -p '{"spec": {"type": "LoadBalancer"}}'
-kubectl patch svc acornworks-signoz-otel-collector -n signoz -p '{"spec": {"type": "LoadBalancer"}}'

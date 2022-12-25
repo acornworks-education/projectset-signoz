@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gateway
+  name: gateway
+  namespace: acornworks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+      - image: k830206/signoz-gateway:latest
+        name: signoz-gateway
+        env:
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: http://acornworks-signoz-otel-collector.signoz.svc.cluster.local:4317
+        - name: SPRING_PROFILES_ACTIVE
+          value: k8s
+        resources: {}
+status: {}
+---
+# kubectl -n acornworks expose deploy gateway --port=65080 --target-port=9080 --type=LoadBalancer --dry-run -o yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: gateway
+  name: gateway
+  namespace: acornworks
+spec:
+  ports:
+  - port: 65080
+    protocol: TCP
+    targetPort: 9080
+  selector:
+    app: gateway
+  type: LoadBalancer
+status:
+  loadBalancer: {}

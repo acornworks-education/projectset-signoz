@@ -1,0 +1,166 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ticker-database
+  name: ticker-database
+  namespace: acornworks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticker-database
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: ticker-database
+    spec:
+      containers:
+      - image: postgres:14.5
+        name: signoz-ticker
+        # https://kubernetes.io/docs/concepts/configuration/secret/
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ticker-db-password
+              optional: false
+              key: password
+        volumeMounts:
+        - name: init-db
+          mountPath: /docker-entrypoint-initdb.d
+        resources: {}   
+      restartPolicy: Always
+      volumes:
+      - name: init-db
+        configMap:
+          name: ticker-db-config
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ticker-database
+  name: ticker-database
+  namespace: acornworks
+spec:
+  ports:
+  - port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: ticker-database
+status:
+  loadBalancer: {}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    app: ticker-flyway
+  name: ticker-flyway
+  namespace: acornworks
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app: ticker-flyway
+    spec:
+      initContainers:
+      - name: wait-for-db
+        image: willwill/wait-for-it:latest
+        args:
+        - ticker-database.acornworks.svc:5432
+      containers:
+      - image: flyway/flyway
+        name: signoz-ticker-flyway
+        imagePullPolicy: Always
+        env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ticker-db-password
+              optional: false
+              key: password
+        - name: JDBC_URL
+          value: jdbc:postgresql://ticker-database.acornworks.svc:5432/postgres
+        args:
+        - "-url=$(JDBC_URL)"
+        - "-schemas=trade"
+        - "-user=postgres"
+        - "-password=$(POSTGRES_PASSWORD)"
+        - "-connectRetries=60"
+        - "migrate"
+        volumeMounts:
+        - name: flyway-scripts
+          mountPath: /flyway/sql
+        resources: {}
+      volumes:
+      - name: flyway-scripts
+        configMap:
+          name: ticker-db-flyway
+      restartPolicy: Never
+status: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ticker
+  name: ticker
+  namespace: acornworks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticker
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: ticker
+    spec:
+      containers:
+      - image: k830206/signoz-ticker:latest
+        name: signoz-ticker
+        imagePullPolicy: Always        
+        ports:
+        - containerPort: 8080
+        env:
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: http://acornworks-signoz-otel-collector.signoz.svc.cluster.local:4318
+        - name: TICKER_HOST
+          value: ticker-database.acornworks.svc
+        - name: TICKER_PORT
+          value: "5432"
+        - name: TICKER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ticker-db-password
+              optional: false
+              key: password
+        resources: {}          
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: ticker
+  name: ticker
+  namespace: acornworks
+spec:
+  ports:
+  - port: 65010
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: ticker
+status:
+  loadBalancer: {}
+---

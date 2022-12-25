@@ -1,0 +1,61 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: acornworks
+spec: {}
+status: {}
+---
+# 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  namespace: acornworks
+  labels:
+    app: price
+  name: price
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: price
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: price
+    spec:
+      containers:
+      - image: k830206/signoz-price:latest
+        imagePullPolicy: Always
+        name: signoz-price
+        ports:
+        - containerPort: 3000
+        env:
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: "http://acornworks-signoz-otel-collector.signoz.svc.cluster.local:4318"
+        - name: NODE_ENV
+          value: production
+        resources: {}
+status: {}
+---
+# kubectl -n acornworks expose deployment/price --port 65020 --target-port 3000 --dry-run -o yaml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: price
+  name: price
+  namespace: acornworks
+spec:
+  ports:
+  - port: 65020
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: price
+status:
+  loadBalancer: {}

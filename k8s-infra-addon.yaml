@@ -54,3 +54,49 @@ k8s-infra:
         - type: remove
           id: remove_level
           field: attributes.level        
+---
+          - job_name: jvm-metrics
+            scrape_interval: 10s
+            metrics_path: /actuator/prometheus
+            static_configs:
+            - targets:
+              - strategy.acornworks.svc.cluster.local:65030
+              - gateway.acornworks.svc.cluster.local:65080
+---
+otelCollector:
+  config:
+    processors:
+      filter/acutator-empty-trace:
+        spans:        
+          exclude:
+            match_type: regexp
+            span_names:
+            - /actuator/prometheus
+            - ReadOperationHandler.handle
+            - OperationHandler.handle
+        logs:
+          exclude:
+            match_type: regexp
+            record_attributes:
+              - Key: trace_id
+                Value: ^$
+      span/gateway:
+        include:
+          match_type: regexp
+          services: ["gateway"]
+          span_names: ["HTTP.*"]
+        name:
+          separator: " "
+          from_attributes: [http.method, http.target]
+---
+# https://signoz.io/docs/monitor-http-endpoints/
+    receivers:
+      httpcheck:
+        endpoint: http://gateway.acornworks.svc.cluster.local:65080/actuator/health
+        method: GET
+        collection_interval: 10s
+
+    metrics:
+      receivers:
+      - httpcheck
+---
