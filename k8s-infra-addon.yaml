@@ -89,14 +89,3 @@ otelCollector:
           separator: " "
           from_attributes: [http.method, http.target]
 ---
-# https://signoz.io/docs/monitor-http-endpoints/
-    receivers:
-      httpcheck:
-        endpoint: http://gateway.acornworks.svc.cluster.local:65080/actuator/health
-        method: GET
-        collection_interval: 10s
-
-    metrics:
-      receivers:
-      - httpcheck
----
